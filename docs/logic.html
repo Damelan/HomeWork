@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Logic</title>
+    <link rel="stylesheet" href="./css/all.css" type="text/css" media="screen" charset="utf-8">
+    <script src="./js/highlight.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <pre><code class="nohighlight hljs" style="padding-bottom: 0;">&copy; Danny Melanich
+
+<span class="hljs-section"># Logic</span>
+
+<a href="https://damelan.github.io/HomeWork/sql.html">Task 1 (sql)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/sql.html">https://damelan.github.io/HomeWork/sql.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/shell.html">Task 2 (shell)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/shell.html">https://damelan.github.io/HomeWork/shell.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/regex.html">Task 3 (regex)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/regex.html">https://damelan.github.io/HomeWork/regex.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/logic.html">Task 4 (logic)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/logic.html">https://damelan.github.io/HomeWork/logic.html</a></span>)
+<span class="hljs-code"></span></code></pre>
+
+    <pre><code class="language-json">// Logic
+
+"ReplaceValue": { // Object with settings for string (value) replacement
+  "replaceItems": [ // Array with settings for objects
+    {
+      "subject": [ // Array with objects that will apply settings
+        "Basement" // Object name
+      ],
+      "search": "N/A", // Search for "N/A"
+      "replace": "" // Replace "N/A" with empty string
+    },
+    {
+      "subject": [ // Array with objects that will apply settings
+        "View", // Object name
+        "Heating", // Object name
+        "Basement", // Object name
+        "FireplaceFeatures", // Object name
+        "ParkingFeatures", // Object name
+        "OtherEquipment", // Object name
+        "LotFeatures", // Object name
+        "Cooling", // Object name
+        "AssociationAmenities", // Object name
+        "WaterSource", // Object name
+        "LaundryFeatures" // Object name
+      ],
+      "search": "None", // Search for "None"
+      "replace": "" // Replace "None" with empty string
+    },
+    {
+      "subject": [ // Array with objects that will apply settings
+        "WaterfrontFeatures" // Object name
+      ],
+      "search": "None,?", // Search for "None,?"
+      "regex": true, // There is a flag "regex" that is set to true
+                     // we must interpret "search" as regular expression
+                     // with values "None" and "None,"
+      "replace": "" // Replace "None" and "None," with empty string
+    }
+  ]
+}
+    </code></pre>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

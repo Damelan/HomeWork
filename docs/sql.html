@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Sql</title>
+    <link rel="stylesheet" href="./css/all.css" type="text/css" media="screen" charset="utf-8">
+    <script src="./js/highlight.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <pre><code class="nohighlight hljs" style="padding-bottom: 0;">&copy; Danny Melanich
+
+<span class="hljs-section"># Sql</span>
+
+<a href="https://damelan.github.io/HomeWork/sql.html">Task 1 (sql)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/sql.html">https://damelan.github.io/HomeWork/sql.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/shell.html">Task 2 (shell)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/shell.html">https://damelan.github.io/HomeWork/shell.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/regex.html">Task 3 (regex)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/regex.html">https://damelan.github.io/HomeWork/regex.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/logic.html">Task 4 (logic)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/logic.html">https://damelan.github.io/HomeWork/logic.html</a></span>)
+<span class="hljs-code"></span></code></pre>
+
+    <pre><code class="language-sql">--------------------------------------------------------------------------------
+-- Create DataBase FeedData
+--------------------------------------------------------------------------------
+
+DROP SCHEMA IF EXISTS `FeedData`;
+CREATE SCHEMA `FeedData`;
+USE `FeedData`;
+
+--------------------------------------------------------------------------------
+-- Create Table Agents
+--------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `FeedData`.`Agents` (
+  `AgentID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `FirstName` VARCHAR(255) NULL,
+  `LastName` VARCHAR(255) NULL,
+  PRIMARY KEY (`AgentID`))
+ENGINE = InnoDB;
+
+--------------------------------------------------------------------------------
+-- Create Table Listings
+--------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `FeedData`.`Listings` (
+  `ListingId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Status` VARCHAR(255) NULL,
+-- `Status` ENUM('act','sld') NULL,
+  `City` VARCHAR(255) NULL,
+  `State` VARCHAR(255) NULL,
+  `Street` VARCHAR(255) NULL,
+  `AgentID` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`ListingId`),
+  INDEX `fk_Listings_Agents_idx` (`AgentID` ASC),
+  CONSTRAINT `fk_Listings_Agents`
+    FOREIGN KEY (`AgentID`)
+    REFERENCES `FeedData`.`Agents` (`AgentID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+--------------------------------------------------------------------------------
+-- Insert Data to Agents
+--------------------------------------------------------------------------------
+
+INSERT INTO `Agents`
+  (`AgentID`,`FirstName`,`LastName`)
+VALUES
+  (1, "Melissa","Perry"),
+  (2, "Sasha","Guzman"),
+  (3, "Isaac","Greene"),
+  (4, "Brett","Bell"),
+  (5, "Magee","Garrison");
+
+--------------------------------------------------------------------------------
+-- Insert Data to Listings
+--------------------------------------------------------------------------------
+
+INSERT INTO `Listings`
+  (`Status`,`City`,`State`,`Street`,`AgentID`)
+VALUES
+  ("sld","Virginia Beach","Virginia","682-1269 Lorem Rd.","5"),
+  ("act","Cedar Rapids","Iow","Ap #444-9980 Vitae Av.","3"),
+  ("act","Rochester","MN","382 Convallis St.","5"),
+  ("act","Boston","MA","Ap #394-3310 Dictum. Rd.","1"),
+  ("sld","West Jordan","UT","7565 Praesent Rd.","5"),
+  ("sld","Milwaukee","Wisconsin","9382 Primis Street","5"),
+  ("sld","Evansville","Indiana","Ap #842-4047 Eu Rd.","3"),
+  ("sld","Hillsboro","Oregon","P.O. Box 558, 3259 Est, Ave","4"),
+  ("sld","Athens","GA","P.O. Box 377, 202 Lorem, Rd.","1"),
+  ("sld","Lafayette","LA","Ap #581-9326 Dui, Rd.","1"),
+  ("sld","Kaneohe","Hawaii","P.O. Box 532, 4703 Tincidunt Street","5"),
+  ("sld","Bowling Green","Kentucky","697-967 Nunc Avenue","2"),
+  ("sld","Salt Lake City","Utah","Ap #818-972 Nibh. St.","5"),
+  ("act","Fort Wayne","IN","P.O. Box 698, 8565 Est. Rd.","2"),
+  ("sld","Harrisburg","PA","P.O. Box 412, 1632 Eros Rd.","1"),
+  ("act","Baltimore","Maryland","P.O. Box 655, 8128 Ligula. Rd.","2"),
+  ("sld","Indianapolis","Indiana","P.O. Box 659, 8097 Nulla Street","3"),
+  ("sld","West Valley City","Utah","P.O. Box 715, 773 Fusce Rd.","3"),
+  ("sld","Independence","Missouri","4424 Tempor Avenue","2"),
+  ("sld","Dover","Delaware","P.O. Box 145, 6044 Erat. Rd.","4");
+
+--------------------------------------------------------------------------------
+-- Total number of agents from Agent table
+--------------------------------------------------------------------------------
+
+SELECT
+  COUNT(*) AS `number_of_agents`
+FROM `Agents`;
+
+-- +------------------+
+-- | number_of_agents |
+-- +------------------+
+-- |                5 |
+-- +------------------+
+
+--------------------------------------------------------------------------------
+-- Total number of listings from Listings table
+--------------------------------------------------------------------------------
+
+SELECT
+  COUNT(*) AS `number_of_listings`
+FROM `Listings`;
+
+-- +--------------------+
+-- | number_of_listings |
+-- +--------------------+
+-- |                 20 |
+-- +--------------------+
+
+--------------------------------------------------------------------------------
+-- Total number of listings that belong to AgentID = 4
+--------------------------------------------------------------------------------
+
+SELECT
+  COUNT(*) AS `listings_for_agent_4`
+FROM `Listings`
+WHERE `AgentID` = 4;
+
+-- +----------------------+
+-- | listings_for_agent_4 |
+-- +----------------------+
+-- |                    2 |
+-- +----------------------+
+
+--------------------------------------------------------------------------------
+-- Total number of listings for each agent group by
+--------------------------------------------------------------------------------
+
+SELECT
+  `AgentID` AS `AgentID`,
+  COUNT(*) AS `number_of_listings`
+FROM `Listings`
+GROUP BY `AgentID`;
+
+-- +---------+--------------------+
+-- | AgentID | number_of_listings |
+-- +---------+--------------------+
+-- |       1 |                  4 |
+-- |       2 |                  4 |
+-- |       3 |                  4 |
+-- |       4 |                  2 |
+-- |       5 |                  6 |
+-- +---------+--------------------+
+
+--------------------------------------------------------------------------------
+-- Select ListingId,Status,City,FirstName,LastName
+-- from Listings and Agents tables
+-- by joining them on the AgentID column. (Hint: JOIN query)
+--------------------------------------------------------------------------------
+
+SELECT
+  `Listings`.`ListingId` AS `ListingId`,
+  `Listings`.`Status` AS `Status`,
+  `Listings`.`City` AS `City`,
+  `Agents`.`FirstName` AS `FirstName`,
+  `Agents`.`LastName` AS `LastName`
+FROM `Listings`
+LEFT JOIN `Agents`
+ON `Agents`.`AgentID` = `Listings`.`AgentID`;
+
+-- +-----------+--------+------------------+-----------+----------+
+-- | ListingId | Status | City             | FirstName | LastName |
+-- +-----------+--------+------------------+-----------+----------+
+-- |         1 | sld    | Virginia Beach   | Magee     | Garrison |
+-- |         2 | act    | Cedar Rapids     | Isaac     | Greene   |
+-- |         3 | act    | Rochester        | Magee     | Garrison |
+-- |         4 | act    | Boston           | Melissa   | Perry    |
+-- |         5 | sld    | West Jordan      | Magee     | Garrison |
+-- |         6 | sld    | Milwaukee        | Magee     | Garrison |
+-- |         7 | sld    | Evansville       | Isaac     | Greene   |
+-- |         8 | sld    | Hillsboro        | Brett     | Bell     |
+-- |         9 | sld    | Athens           | Melissa   | Perry    |
+-- |        10 | sld    | Lafayette        | Melissa   | Perry    |
+-- |        11 | sld    | Kaneohe          | Magee     | Garrison |
+-- |        12 | sld    | Bowling Green    | Sasha     | Guzman   |
+-- |        13 | sld    | Salt Lake City   | Magee     | Garrison |
+-- |        14 | act    | Fort Wayne       | Sasha     | Guzman   |
+-- |        15 | sld    | Harrisburg       | Melissa   | Perry    |
+-- |        16 | act    | Baltimore        | Sasha     | Guzman   |
+-- |        17 | sld    | Indianapolis     | Isaac     | Greene   |
+-- |        18 | sld    | West Valley City | Isaac     | Greene   |
+-- |        19 | sld    | Independence     | Sasha     | Guzman   |
+-- |        20 | sld    | Dover            | Brett     | Bell     |
+-- +-----------+--------+------------------+-----------+----------+</code></pre>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

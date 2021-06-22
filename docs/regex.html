@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Regex</title>
+    <link rel="stylesheet" href="./css/all.css" type="text/css" media="screen" charset="utf-8">
+    <script src="./js/highlight.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <pre><code class="nohighlight hljs" style="padding-bottom: 0;">&copy; Danny Melanich
+
+<span class="hljs-section"># Regex</span>
+
+<a href="https://damelan.github.io/HomeWork/sql.html">Task 1 (sql)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/sql.html">https://damelan.github.io/HomeWork/sql.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/shell.html">Task 2 (shell)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/shell.html">https://damelan.github.io/HomeWork/shell.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/regex.html">Task 3 (regex)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/regex.html">https://damelan.github.io/HomeWork/regex.html</a></span>)
+
+<a href="https://damelan.github.io/HomeWork/logic.html">Task 4 (logic)</a>
+[<span class="hljs-string">a link</span>](<span class="hljs-link"><a href="https://damelan.github.io/HomeWork/logic.html">https://damelan.github.io/HomeWork/logic.html</a></span>)
+<span class="hljs-code"></span></code></pre>
+
+    <pre><code class="language-bash">#!/bin/bash
+
+# ------------------------------------------------------------------------------
+# Find a way to select IP addresses like 6.216.166.67, 127.0.0.1, 192.168.0.15
+# from text below using RegularExpression.
+# ------------------------------------------------------------------------------
+
+touch /tmp/regex.txt
+
+echo \
+  "I’m sure there are better subs to post this to but I don’t know them, anyways,\
+  my friend keeps getting these weird messages that kinda looks like IP address.\
+  This is the entirety of messages, “6.216.166.67:8012/0330024645600028000040000”\
+  they send them periodically 192.168.0.1:9200 and the numbers are slightly\
+  different but in the same format. I can’t seem to find anything from my\
+  phone. Any ideas what this could be?" &gt; /tmp/regex.txt
+
+# -E Interpret PATTERNS as extended regular expressions
+
+grep -E \
+  '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}' \
+  /tmp/regex.txt
+
+    </code></pre>
+    <script>
+      hljs.getLanguage('bash').keywords += ' touch cd mkdir echo grep';
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>
